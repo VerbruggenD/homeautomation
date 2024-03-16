@@ -4,7 +4,9 @@
 # REPO_PATH="homeautomation/"
 REMOTE_BRANCH="main"
 LOCAL_BRANCH="main"
-TIMEOUT=10  # Timeout in seconds (5 minutes)
+MAX_RETRIES=10  # Timeout in seconds (5 minutes)
+
+COUNTER=0
 
 # Change to the Git repository directory
 # cd "$REPO_PATH" || exit
@@ -32,6 +34,14 @@ check_updates
 while [ $? -ne 0 ]; do
     sleep TIMEOUT # Check every 10 seconds
     check_updates
+    
+    # Increment retry count
+    ((retry_count++))
+
+    if [ $retry_count -ge $MAX_RETRIES ]; then
+        echo "Maximum number of retries ($MAX_RETRIES) reached. Exiting loop."
+        break
+    fi
 done
 
 cd "dashboard/" || exit
