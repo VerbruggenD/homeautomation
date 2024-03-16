@@ -1,0 +1,6 @@
+*/.vscode/*
+.vscode/*
+credentials.txt
+_static
+_templates
+
