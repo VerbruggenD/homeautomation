@@ -4,7 +4,7 @@
 # REPO_PATH="homeautomation/"
 REMOTE_BRANCH="main"
 LOCAL_BRANCH="main"
-MAX_RETRIES=10  # Timeout in seconds (5 minutes)
+MAX_RETRIES=20  # Timeout in seconds (5 minutes)
 
 COUNTER=0
 
@@ -32,7 +32,6 @@ check_updates
 
 # While loop with timeout
 while [ $? -ne 0 ]; do
-    sleep TIMEOUT # Check every 10 seconds
     check_updates
     
     # Increment retry count
@@ -42,6 +41,8 @@ while [ $? -ne 0 ]; do
         echo "Maximum number of retries ($MAX_RETRIES) reached. Exiting loop."
         break
     fi
+
+    sleep TIMEOUT # Check every 10 seconds
 done
 
 cd "dashboard/" || exit
