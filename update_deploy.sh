@@ -19,7 +19,7 @@ check_updates() {
 
     if [ "$REMOTE_HASH" != "$LOCAL_HASH" ]; then
         echo "Local repository is outdated. Remote repository has new commits. Pulling changes..."
-        git pull origin $REMOTE_BRANCH
+        git reset --hard origin/$REMOTE_BRANCH
         return 1
     else
         echo "Local repository is up to date."
