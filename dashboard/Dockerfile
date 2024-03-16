@@ -1,30 +1,21 @@
 # Use the official Python image as the base image
-FROM python:3.9-slim
-
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+FROM arm32v7/python:3.9
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /App
 
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    libpq-dev gcc
-
-# ARM architecture specific dependencies
-RUN apt-get install -y \
-    qemu-user-static \
-    binfmt-support
+# Install gcc compiler
+RUN apt-get update \
+    && apt-get install -y gcc
 
 # Copy the requirements file
 COPY requirements.txt .
 
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy the rest of the application code
-COPY . .
+COPY /App .
 
 # Expose the port that the app runs on
 EXPOSE 5000
