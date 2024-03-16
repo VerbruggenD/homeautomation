@@ -34,8 +34,8 @@ while [ $? -ne 0 ]; do
     check_updates
 done
 
-cd /dashboard || exit
+cd "dashboard/" || exit
 echo "Building and running Docker container..."
-sudo docker-compose up -d
+sudo docker compose up -d
 
 echo "Docker container build complete."
