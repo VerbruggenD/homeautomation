@@ -3,4 +3,5 @@
 credentials.txt
 _static
 _templates
+*.log
 
